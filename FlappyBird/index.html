@@ -269,6 +269,7 @@ var restart = game.newTextObject({
 });
 
 game.newLoop('GameOver', function () {
+	speed = -1;
 	game.clear();
 	drawBG();
 	drawGR();
