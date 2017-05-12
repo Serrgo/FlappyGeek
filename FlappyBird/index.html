@@ -490,7 +490,10 @@ game.newLoop('GameOver', function () {
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
-		var e = 'easy', n = 'normal', h = 'IMPOSSIBLE',d = 'normal';
+		var e = 'easy';
+		var n = 'normal';
+		var h = 'IMPOSSIBLE';
+		var d = 'normal';
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
