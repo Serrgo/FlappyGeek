@@ -40,6 +40,10 @@ var brush = pjs.brush;
 var mouse = pjs.mouseControl.initMouseControl();
 
 var sound = true;
+var easyTrig = false;
+var normalTrig = true;
+var hardTrig = false;	
+
 var score = 0;
 var speed = -1;
 var speedK = 0.001;
@@ -236,6 +240,9 @@ game.newLoop('difficultMenu', function () {
 		easy.color = '#ff0000';	
 		normal.color = '#FFFFFF';
 		hard.color = '#000000';
+		easyTrig = true;
+		normalTrig = false;
+		hardTrig = false;
 		space = 80;
 		speed = -1;
 		speedK=0.0001;
@@ -247,6 +254,9 @@ game.newLoop('difficultMenu', function () {
 		easy.color = '#FFFFFF';
 		normal.color = '#ff0000';
 		hard.color = '#000000';
+		easyTrig = false;
+		normalTrig = true;
+		hardTrig = false;
 		space = 60;
 		speed = -1.5;
 		speedK = 0.001;
@@ -258,6 +268,9 @@ game.newLoop('difficultMenu', function () {
 		easy.color = '#FFFFFF';
 		normal.color = '#FFFFFF';
 		hard.color = '#ff0000';	
+		easyTrig = false;
+		normalTrig = false;
+		hardTrig = true;
 		space = 40;
 		speed = -2;
 		speedK = 0.005;
