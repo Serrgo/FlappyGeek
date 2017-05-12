@@ -7,8 +7,8 @@
 
 	<style>
 		@font-face {
-			font-family : 'myFont'; /* Ваше название шрифта */
-			src : url(font.ttf);    /* Путь к файлу со шрифтом TTF */
+			font-family : 'myFont'; 
+			src : url(font.ttf);    
 		}
 	</style>
 
@@ -18,13 +18,13 @@
 <script type="text/javascript" src="point.js"></script>
 <script type="text/javascript">
 
-var vk_inited = false;
+/*var vk_inited = false;
 
 VK.init(function() {
 	vk_inited = true;
 }, function() {
 
-}, '5.60');
+}, '5.60');*/
 
 var width = 640, height = 480;
 
@@ -42,19 +42,16 @@ var mouse = pjs.mouseControl.initMouseControl();
 var sound = true;
 var easyTrig = false;
 var normalTrig = true;
-var hardTrig = false;	
+var hardTrig = false;
 
 var score = 0;
-var speed = -1;
-var speedK = 0.001;
+var speed = -5;
 var space = 60;
 var drop = 0.5;
-var up = -8;
+var up = -9;
 var audioPoint = new Audio();
 var audioWing = new Audio();
 var audioDie = new Audio();
-
-var lockSpeed = speed;
 
 
 var bg = [], oldB;
@@ -98,7 +95,7 @@ OOP.forInt(35, function(i){
 var drawGR = function(){
 	OOP.forArr(gr,function(el){
 		el.draw();
-		el.move(p(lockSpeed,0));
+		el.move(p(speed,0));
 		
 		if (el.x + el.w <0){
 			el.x = oldG.x + oldG.w;
@@ -120,7 +117,7 @@ var bird = game.newAnimationObject({
 });
 
 var startGame = game.newTextObject({
-	text : 'START GAME',
+	text : 'НАЧАТЬ ИГРУ',
 	positionC : p(width/2, height/3),
 	font : 'myFont',
 	size : 30,
@@ -128,15 +125,15 @@ var startGame = game.newTextObject({
 });
 
 var difficult = game.newTextObject({
-	text : 'DIFFICULT',
-	positionC : p(width/2 + 7, height/2.3),
+	text : 'СЛОЖНОСТЬ',
+	positionC : p(width/2, height/2.3),
 	font : 'myFont',
 	size : 30,
 	color : '#FFFFFF'
 });
 
 var offSound = game.newTextObject({
-	text : 'SOUND',
+	text : 'ЗВУК',
 	positionC : p(20, 10),
 	font : 'myFont',
 	size : 10,
@@ -192,31 +189,31 @@ var Menu = function () {
 };
 
 var easy = game.newTextObject({
-	text : 'EASY',
-	positionC : p(width/2, height/1.9),
+	text : 'ЛЕГКО',
+	positionC : p(width/2, height/3),
 	font : 'myFont',
 	size : 30,
-	color : '#FFFFFF'
+	color : '#FFFFFF',
 });
 
 var normal = game.newTextObject({
-	text : 'NORMAL',
+	text : 'НОРМАЛЬНО',
 	positionC : p(width/2, height/2.3),
-	font : 'myFont',
-	size : 30,
-	color : '#FFFFFF'
-});
-
-var hard = game.newTextObject({
-	text : 'IMPOSSIBLE',
-	positionC : p(width/2, height/3),
 	font : 'myFont',
 	size : 30,
 	color : '#000000'
 });
 
+var hard = game.newTextObject({
+	text : 'IMPOSSIBLE',
+	positionC : p(width/2, height/1.9),
+	font : 'myFont',
+	size : 30,
+	color : '#ff0000'
+});
+
 var back = game.newTextObject({
-	text : 'BACK',
+	text : 'НАЗАД',
 	positionC : p(width/2, height/6),
 	font : 'myFont',
 	size : 50,
@@ -232,34 +229,39 @@ game.newLoop('difficultMenu', function () {
 	hard.draw();
 	back.draw();
 	
+	if (mouse.isPeekObject('LEFT', offSound)) {
+		if (sound){
+			offSound.color = '#254364';
+		} else offSound.color = '#FFFFFF';
+		sound = !sound;
+	}
+	
 	if (mouse.isPeekObject('LEFT', back)) {
 		game.setLoop('menu');
 	}
 	
 	if (mouse.isPeekObject('LEFT', easy)) {
-		easy.color = '#ff0000';	
+		easy.color = '#000000';	
 		normal.color = '#FFFFFF';
-		hard.color = '#000000';
+		hard.color = '#ff0000';
 		easyTrig = true;
 		normalTrig = false;
 		hardTrig = false;
 		space = 80;
-		speed = -1;
-		speedK=0.0001;
+		speed = -2;
 		drop = 0.3;
 		up = -6
 	}
 	
 	if (mouse.isPeekObject('LEFT', normal)) {
 		easy.color = '#FFFFFF';
-		normal.color = '#ff0000';
-		hard.color = '#000000';
+		normal.color = '#000000';
+		hard.color = '#ff0000';
 		easyTrig = false;
 		normalTrig = true;
 		hardTrig = false;
 		space = 60;
-		speed = -1.5;
-		speedK = 0.001;
+		speed = -5;
 		drop = 0.5;
 		up = -9;
 	}
@@ -267,15 +269,14 @@ game.newLoop('difficultMenu', function () {
 	if (mouse.isPeekObject('LEFT', hard)) {
 		easy.color = '#FFFFFF';
 		normal.color = '#FFFFFF';
-		hard.color = '#ff0000';	
+		hard.color = '#000000';
 		easyTrig = false;
 		normalTrig = false;
 		hardTrig = true;
-		space = 40;
-		speed = -2;
-		speedK = 0.005;
-		drop = 0.8;
-		up = -10;
+		space = 50;
+		speed = -6;
+		drop = 0.6;
+		up = -8;
 	}
 		
 });
@@ -285,11 +286,11 @@ var Game = function() {
 	var blocks = [],oldBlock = false, newBlock = false;
 	
 	var addBlock = function(y) {
-		var dX = oldBlock ? oldBlock.top.x + pjs.math.random(200,400) : width;
+		//var dX = oldBlock ? oldBlock.top.x + pjs.math.random(200,400) : width;
 	
 		var o = game.newImageObject({
 			file : 'block.png',
-			x : dX, y : 0,
+			x : 630, y : 0,
 			w : width / 10,
 			angle : 180,
 			onload : function(){
@@ -299,37 +300,17 @@ var Game = function() {
 		
 		var o2 = game.newImageObject({
 			file : 'block.png',
-			x : dX, y : 0,
+			x : 630, y : 0,
 			w : width / 10,
 			onload : function(){
 				this.y = y + space;
 			}
 		});
 		
-		var o3 = game.newImageObject({
-			/*file : 'block.png',
-			x : dX, y : 0,
-			w : width / 10,
-			angle : 180,
-			onload : function(){
-				this.y = -this.h + y - space;
-			}*/
-		});
-		
-		var o4 = game.newImageObject({
-			/*file : 'block.png',
-			x : dX, y : 0,
-			w : width / 10,
-			onload : function(){
-				this.y = y + space;
-			}*/
-		});
 		
 		var obj = {
 			'top' : o,
 			'bottom' : o2,
-			'oldTop' :o3,
-			'oldBottom' : o4,
 		} 
 		
 		oldBlock = obj;
@@ -337,8 +318,8 @@ var Game = function() {
 		blocks.push(obj);
 	};
 	
-	OOP.forInt(5, function(){
-		addBlock(pjs.math.random(space*2,height - space*2));
+	OOP.forInt(1, function(){
+		addBlock(pjs.math.random(80,height - space - 80));
 	});
 	
 	var scoreBool = true;
@@ -349,19 +330,15 @@ var Game = function() {
 			el.top.draw();
 			el.bottom.draw();
 			
-			lockSpeed -= speedK;
-			
-			el.top.move(p(lockSpeed,0));	
-			el.bottom.move(p(lockSpeed,0));
+			el.top.move(p(speed,0));	
+			el.bottom.move(p(speed,0));
 			
 			if (scoreBool){
 				newBlock=el;
 			}
 			
-			if ((el.top.x - bird.x  < 1) ) {
-				el.top.x = el.bottom.x = oldBlock.top.x + oldBlock.top.w + pjs.math.random(200,400);
-				oldBlock = el;
-				//scoreBool=false;
+			if (el.top.x - width/2  == 0) {
+				addBlock(pjs.math.random(80,height - space - 80));
 				score += 1;
 				
 					if (sound){
@@ -370,10 +347,9 @@ var Game = function() {
 					}
 			}
 			
-			/*if (el.top.x + el.top.w < 0){
-				el.top.x = el.bottom.x = oldBlock.top.x + oldBlock.top.w + pjs.math.random(200,400);
-				oldBlock = el;
-			}*/
+			if (el.top.x == -52){
+				el = null;
+			}
 			
 			if (el.top.isInCamera()){
 				if ((el.top.isIntersect(bird)) || (el.bottom.isIntersect(bird))){
@@ -435,8 +411,8 @@ var Game = function() {
 
 		blocks = [], oldBlock = false;
 
-		OOP.forInt(5, function () {
-			addBlock(pjs.math.random(space*2, height-space*2));
+		OOP.forInt(1, function () {
+			addBlock(pjs.math.random(80,height - space - 80));
 		});
 
 
@@ -449,7 +425,7 @@ game.newLoopFromClassObject('menu', new Menu());
 game.newLoopFromClassObject('game', new Game());
 
 var pushVK = game.newTextObject({
-	text : 'PUBLISH TO VK',
+	text : 'ПОДЕЛИТЬСЯ',
 	positionC : p(width/2, height/1.9),
 	font : 'myFont',
 	size : 30,
@@ -457,7 +433,7 @@ var pushVK = game.newTextObject({
 });
 
 var restart = game.newTextObject({
-	text : 'RESTART',
+	text : 'ЗАНОВО',
 	positionC : p(width/2, height/2.3),
 	font : 'myFont',
 	size : 30,
@@ -465,55 +441,41 @@ var restart = game.newTextObject({
 });
 
 var mainMenu = game.newTextObject({
-	text : 'MENU',
+	text : 'МЕНЮ',
 	positionC : p(width/2, height/3),
 	font : 'myFont',
 	size : 30,
 	color : '#FFFFFF'
 });
-	
-var e = 'easy';
-var n = 'normal';
-var h = 'IMPOSSIBLE';
-var d = 'normal';
 
 game.newLoop('GameOver', function () {
-	game.clear();
-	drawBG();
-	drawGR();
-
-	brush.drawText({
-		x : width / 2,
-		y : height / 20,
-		text : 'YourScore: ' + score,
-		size : 50,
-		color : 'white',
-		font : 'myFont',
-		align : 'center'
-	});
-
 	pushVK.draw();
 	restart.draw();
 	mainMenu.draw();
 	offSound.draw();
 
 	if (mouse.isPeekObject('LEFT', restart)) {
-		lockSpeed = speed;
+		game.clear();
+		speed = speed;
 		game.setLoop('game');
 	}
 	
 	if (mouse.isPeekObject('LEFT', mainMenu)) {
-		lockSpeed = speed;
+		game.clear();
+		speed = speed;
 		game.startLoop('menu');
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
+		var e = 'легко', n = 'нормально', h = 'IMPOSSIBLE',d = 'нормально';
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
 		VK.api('wall.post', {
-			'message' : 'В приложении FlappyGeek на сложности ' + d + ' я набрал очков: ' + score + '\n Попробуй и ты:https://vk.com/app6025550',
-			'attachments' : 'photo-146717372_456239021'
+
+			'message' : 'В приложении FlappyBird на сложности '+ d + ' я набрал очков: ' + score + '\n Попробуй и ты:',
+			'attachments' : 'photo-44840923_456239018'
+
 		}, function (data) {
 			log('Success');
 		});
