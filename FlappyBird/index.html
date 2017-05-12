@@ -467,15 +467,12 @@ game.newLoop('GameOver', function () {
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
-		var e = 'легко', n = 'нормально', h = 'IMPOSSIBLE',d = 'нормально';
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
 		VK.api('wall.post', {
-
-			'message' : 'В приложении FlappyBird на сложности '+ d + ' я набрал очков: ' + score + '\n Попробуй и ты:https://vk.com/app6025550',
+			'message' : 'В приложении FlappyGeek на сложности ' + d + ' я набрал очков: ' + score + '\n Попробуй и ты:https://vk.com/app6025550',
 			'attachments' : 'photo-146717372_456239021'
-
 		}, function (data) {
 			log('Success');
 		});
