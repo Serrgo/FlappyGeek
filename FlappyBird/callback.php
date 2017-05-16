@@ -53,7 +53,7 @@ if ($item == 'item_25new') {
 case 'get_item_test': 
       // Ïîëó÷åíèå èíôîðìàöèè î òîâàðå â òåñòîâîì ðåæèìå 
       $item = $input['item']; 
-      if ($item == 'item1') { 
+      if ($item == 'item_25new') { 
         $response['response'] = array( 
           'item_id' => 125, 
           'title' => '300 çîëîòûõ ìîíåò (òåñòîâûé ðåæèì)', 
