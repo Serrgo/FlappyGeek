@@ -449,25 +449,26 @@ var mainMenu = game.newTextObject({
 });
 
 game.newLoop('GameOver', function () {
+	game.clear();
 	pushVK.draw();
 	restart.draw();
 	mainMenu.draw();
 	offSound.draw();
 
 	if (mouse.isPeekObject('LEFT', restart)) {
-		game.clear();
+		//game.clear();
 		speed = speed;
 		game.setLoop('game');
 	}
 	
 	if (mouse.isPeekObject('LEFT', mainMenu)) {
-		game.clear();
+		//game.clear();
 		speed = speed;
 		game.startLoop('menu');
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
-		game.clear();
+		//game.clear();
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
