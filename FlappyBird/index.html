@@ -467,7 +467,6 @@ game.newLoop('GameOver', function () {
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
-		game.clear();
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
@@ -477,6 +476,7 @@ game.newLoop('GameOver', function () {
 		}, function (data) {
 			log('Success');
 		});
+		//game.clear();
 	}
 	
 	if (mouse.isPeekObject('LEFT', offSound)) {
