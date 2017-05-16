@@ -44,6 +44,8 @@ var easyTrig = false;
 var normalTrig = true;
 var hardTrig = false;
 
+var item = 0;
+
 var score = 0;
 var speed = -5;
 var space = 60;
@@ -198,6 +200,7 @@ var Menu = function () {
 		difficult.draw();
 		shop.draw();
 		buyCoins.draw();
+		item.draw();
 
 		brush.drawText({
 			x : width / 2,
