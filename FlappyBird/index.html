@@ -18,13 +18,13 @@
 <script type="text/javascript" src="point.js"></script>
 <script type="text/javascript">
 
-/*var vk_inited = false;
+var vk_inited = false;
 
 VK.init(function() {
 	vk_inited = true;
 }, function() {
 
-}, '5.60');*/
+}, '5.60');
 
 var width = 640, height = 480;
 
@@ -554,13 +554,12 @@ game.newLoop('GameOver', function () {
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
 		VK.api('wall.post', {
-
-			'message' : 'В приложении FlappyBird на сложности '+ d + ' я набрал очков: ' + score + '\n Попробуй и ты:',
-			'attachments' : 'photo-44840923_456239018'
-
+			'message' : 'В приложении FlappyGeek на сложности ' + d + ' я набрал очков: ' + score + '\n Попробуй и ты:https://vk.com/app6025550',
+			'attachments' : 'photo-146717372_456239021'
 		}, function (data) {
 			log('Success');
 		});
+		//game.clear();
 	}
 	
 	if (mouse.isPeekObject('LEFT', offSound)) {
