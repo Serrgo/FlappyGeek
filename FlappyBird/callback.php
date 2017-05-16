@@ -1,11 +1,11 @@
 <?php 
 header("Content-Type: application/json; encoding=utf-8"); 
 
-$secret_key = 'NGqGM05Yj2dS6nkeZ9Kr'; // Çàùèùåííûé êëş÷ ïğèëîæåíèÿ 
+$secret_key = 'NGqGM05Yj2dS6nkeZ9Kr'; // Ã‡Ã Ã¹Ã¨Ã¹Ã¥Ã­Ã­Ã»Ã© ÃªÃ«Ã¾Ã· Ã¯Ã°Ã¨Ã«Ã®Ã¦Ã¥Ã­Ã¨Ã¿ 
 
 $input = $_POST; 
 
-// Ïğîâåğêà ïîäïèñè 
+// ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã¯Ã®Ã¤Ã¯Ã¨Ã±Ã¨ 
 $sig = $input['sig']; 
 unset($input['sig']); 
 ksort($input); 
@@ -17,72 +17,72 @@ foreach ($input as $k => $v) {
 if ($sig != md5($str.$secret_key)) { 
   $response['error'] = array( 
     'error_code' => 10, 
-    'error_msg' => 'Íåñîâïàäåíèå âû÷èñëåííîé è ïåğåäàííîé ïîäïèñè çàïğîñà.', 
+    'error_msg' => 'ÃÃ¥Ã±Ã®Ã¢Ã¯Ã Ã¤Ã¥Ã­Ã¨Ã¥ Ã¢Ã»Ã·Ã¨Ã±Ã«Ã¥Ã­Ã­Ã®Ã© Ã¨ Ã¯Ã¥Ã°Ã¥Ã¤Ã Ã­Ã­Ã®Ã© Ã¯Ã®Ã¤Ã¯Ã¨Ã±Ã¨ Ã§Ã Ã¯Ã°Ã®Ã±Ã .', 
     'critical' => true 
   ); 
 } else { 
-  // Ïîäïèñü ïğàâèëüíàÿ 
+  // ÃÃ®Ã¤Ã¯Ã¨Ã±Ã¼ Ã¯Ã°Ã Ã¢Ã¨Ã«Ã¼Ã­Ã Ã¿ 
   switch ($input['notification_type']) { 
     case 'get_item': 
-      // Ïîëó÷åíèå èíôîğìàöèè î òîâàğå 
-      $item = $input['item']; // íàèìåíîâàíèå òîâàğà 
+      // ÃÃ®Ã«Ã³Ã·Ã¥Ã­Ã¨Ã¥ Ã¨Ã­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¨ Ã® Ã²Ã®Ã¢Ã Ã°Ã¥ 
+      $item = $input['item']; // Ã­Ã Ã¨Ã¬Ã¥Ã­Ã®Ã¢Ã Ã­Ã¨Ã¥ Ã²Ã®Ã¢Ã Ã°Ã  
 
-if ($item == 'item1') { 
+if ($item == 'item_25new') { 
         $response['response'] = array( 
           'item_id' => 25, 
-          'title' => '300 çîëîòûõ ìîíåò', 
+          'title' => '300 Ã§Ã®Ã«Ã®Ã²Ã»Ãµ Ã¬Ã®Ã­Ã¥Ã²', 
           'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
           'price' => 5 
         ); 
       } elseif ($item == 'item2') { 
         $response['response'] = array( 
           'item_id' => 27, 
-          'title' => '500 çîëîòûõ ìîíåò', 
+          'title' => '500 Ã§Ã®Ã«Ã®Ã²Ã»Ãµ Ã¬Ã®Ã­Ã¥Ã²', 
           'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
           'price' => 10 
         ); 
       } else { 
         $response['error'] = array( 
           'error_code' => 20, 
-          'error_msg' => 'Òîâàğà íå ñóùåñòâóåò.', 
+          'error_msg' => 'Ã’Ã®Ã¢Ã Ã°Ã  Ã­Ã¥ Ã±Ã³Ã¹Ã¥Ã±Ã²Ã¢Ã³Ã¥Ã².', 
           'critical' => true 
         ); 
       } 
       break; 
 
 case 'get_item_test': 
-      // Ïîëó÷åíèå èíôîğìàöèè î òîâàğå â òåñòîâîì ğåæèìå 
+      // ÃÃ®Ã«Ã³Ã·Ã¥Ã­Ã¨Ã¥ Ã¨Ã­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¨ Ã® Ã²Ã®Ã¢Ã Ã°Ã¥ Ã¢ Ã²Ã¥Ã±Ã²Ã®Ã¢Ã®Ã¬ Ã°Ã¥Ã¦Ã¨Ã¬Ã¥ 
       $item = $input['item']; 
       if ($item == 'item1') { 
         $response['response'] = array( 
           'item_id' => 125, 
-          'title' => '300 çîëîòûõ ìîíåò (òåñòîâûé ğåæèì)', 
+          'title' => '300 Ã§Ã®Ã«Ã®Ã²Ã»Ãµ Ã¬Ã®Ã­Ã¥Ã² (Ã²Ã¥Ã±Ã²Ã®Ã¢Ã»Ã© Ã°Ã¥Ã¦Ã¨Ã¬)', 
           'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
           'price' => 5 
         ); 
       } elseif ($item == 'item2') { 
         $response['response'] = array( 
           'item_id' => 127, 
-          'title' => '500 çîëîòûõ ìîíåò (òåñòîâûé ğåæèì)', 
+          'title' => '500 Ã§Ã®Ã«Ã®Ã²Ã»Ãµ Ã¬Ã®Ã­Ã¥Ã² (Ã²Ã¥Ã±Ã²Ã®Ã¢Ã»Ã© Ã°Ã¥Ã¦Ã¨Ã¬)', 
           'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
           'price' => 10 
         ); 
       } else { 
         $response['error'] = array( 
           'error_code' => 20, 
-          'error_msg' => 'Òîâàğà íå ñóùåñòâóåò.', 
+          'error_msg' => 'Ã’Ã®Ã¢Ã Ã°Ã  Ã­Ã¥ Ã±Ã³Ã¹Ã¥Ã±Ã²Ã¢Ã³Ã¥Ã².', 
           'critical' => true 
         ); 
       } 
       break; 
 
 case 'order_status_change': 
-      // Èçìåíåíèå ñòàòóñà çàêàçà 
+      // ÃˆÃ§Ã¬Ã¥Ã­Ã¥Ã­Ã¨Ã¥ Ã±Ã²Ã Ã²Ã³Ã±Ã  Ã§Ã ÃªÃ Ã§Ã  
       if ($input['status'] == 'chargeable') { 
         $order_id = intval($input['order_id']); 
 
-// Êîä ïğîâåğêè òîâàğà, âêëş÷àÿ åãî ñòîèìîñòü 
-        $app_order_id = 1; // Ïîëó÷àşùèéñÿ ó âàñ èäåíòèôèêàòîğ çàêàçà. 
+// ÃŠÃ®Ã¤ Ã¯Ã°Ã®Ã¢Ã¥Ã°ÃªÃ¨ Ã²Ã®Ã¢Ã Ã°Ã , Ã¢ÃªÃ«Ã¾Ã·Ã Ã¿ Ã¥Ã£Ã® Ã±Ã²Ã®Ã¨Ã¬Ã®Ã±Ã²Ã¼ 
+        $app_order_id = 1; // ÃÃ®Ã«Ã³Ã·Ã Ã¾Ã¹Ã¨Ã©Ã±Ã¿ Ã³ Ã¢Ã Ã± Ã¨Ã¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã° Ã§Ã ÃªÃ Ã§Ã . 
 
 $response['response'] = array( 
           'order_id' => $order_id, 
@@ -91,18 +91,18 @@ $response['response'] = array(
       } else { 
         $response['error'] = array( 
           'error_code' => 100, 
-          'error_msg' => 'Ïåğåäàíî íåïîíÿòíî ÷òî âìåñòî chargeable.', 
+          'error_msg' => 'ÃÃ¥Ã°Ã¥Ã¤Ã Ã­Ã® Ã­Ã¥Ã¯Ã®Ã­Ã¿Ã²Ã­Ã® Ã·Ã²Ã® Ã¢Ã¬Ã¥Ã±Ã²Ã® chargeable.', 
           'critical' => true 
         ); 
       } 
       break; 
 
 case 'order_status_change_test': 
-      // Èçìåíåíèå ñòàòóñà çàêàçà â òåñòîâîì ğåæèìå 
+      // ÃˆÃ§Ã¬Ã¥Ã­Ã¥Ã­Ã¨Ã¥ Ã±Ã²Ã Ã²Ã³Ã±Ã  Ã§Ã ÃªÃ Ã§Ã  Ã¢ Ã²Ã¥Ã±Ã²Ã®Ã¢Ã®Ã¬ Ã°Ã¥Ã¦Ã¨Ã¬Ã¥ 
       if ($input['status'] == 'chargeable') { 
         $order_id = intval($input['order_id']); 
 
-$app_order_id = 1; // Òóò ôàêòè÷åñêîãî çàêàçà ìîæåò íå áûòü - òåñòîâûé ğåæèì. 
+$app_order_id = 1; // Ã’Ã³Ã² Ã´Ã ÃªÃ²Ã¨Ã·Ã¥Ã±ÃªÃ®Ã£Ã® Ã§Ã ÃªÃ Ã§Ã  Ã¬Ã®Ã¦Ã¥Ã² Ã­Ã¥ Ã¡Ã»Ã²Ã¼ - Ã²Ã¥Ã±Ã²Ã®Ã¢Ã»Ã© Ã°Ã¥Ã¦Ã¨Ã¬. 
 
 $response['response'] = array( 
           'order_id' => $order_id, 
@@ -111,7 +111,7 @@ $response['response'] = array(
       } else { 
         $response['error'] = array( 
           'error_code' => 100, 
-          'error_msg' => 'Ïåğåäàíî íåïîíÿòíî ÷òî âìåñòî chargeable.', 
+          'error_msg' => 'ÃÃ¥Ã°Ã¥Ã¤Ã Ã­Ã® Ã­Ã¥Ã¯Ã®Ã­Ã¿Ã²Ã­Ã® Ã·Ã²Ã® Ã¢Ã¬Ã¥Ã±Ã²Ã® chargeable.', 
           'critical' => true 
         ); 
       } 
