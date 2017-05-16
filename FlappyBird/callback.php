@@ -27,7 +27,7 @@ if ($sig != md5($str.$secret_key)) {
       // Ïîëó÷åíèå èíôîðìàöèè î òîâàðå 
       $item = $input['item']; // íàèìåíîâàíèå òîâàðà 
 
-if ($item == 'item_25new') { 
+if ($item == 'item1') { 
         $response['response'] = array( 
           'item_id' => 25, 
           'title' => '300 çîëîòûõ ìîíåò', 
@@ -57,7 +57,7 @@ case 'get_item_test':
         $response['response'] = array( 
           'item_id' => 125, 
           'title' => '300 çîëîòûõ ìîíåò (òåñòîâûé ðåæèì)', 
-          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
+          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.jpg', 
           'price' => 5 
         ); 
       } elseif ($item == 'item2') { 
