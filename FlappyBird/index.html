@@ -8,7 +8,7 @@
 	<style>
 		@font-face {
 			font-family : 'myFont'; 
-			src : url(fof.ttf);    
+			src : url(font.ttf);    
 		}
 	</style>
 
@@ -18,13 +18,13 @@
 <script type="text/javascript" src="point.js"></script>
 <script type="text/javascript">
 
-var vk_inited = false;
+/*var vk_inited = false;
 
 VK.init(function() {
 	vk_inited = true;
 }, function() {
 
-}, '5.60');
+}, '5.60');*/
 
 var width = 640, height = 480;
 
@@ -52,6 +52,29 @@ var up = -9;
 var audioPoint = new Audio();
 var audioWing = new Audio();
 var audioDie = new Audio();
+
+
+
+			function order() {
+				var params = {
+					type: 'item',
+					item: 'item_25new'
+				};
+				VK.callMethod('showOrderBox', params);
+			}
+		
+			var callbacksResults = document.getElementById('callbacks');
+
+			VK.addCallback('onOrderSuccess', function(order_id) {
+				callbacksResults.innerHTML += '<br />onOrderSuccess '+order_id;
+			});
+			VK.addCallback('onOrderFail', function() {
+				callbacksResults.innerHTML += '<br />onOrderFail';
+			});
+			VK.addCallback('onOrderCancel', function() {
+				callbacksResults.innerHTML += '<br />onOrderCancel';
+			});	
+
 
 
 var bg = [], oldB;
@@ -109,7 +132,7 @@ var drawGR = function(){
 var bird = game.newAnimationObject({
 	w : 34, h : 24,
 	positionC : p(width / 2, height / 2),
-	animation : pjs.tiles.newAnimation('34_24_4.png', 34, 24, 4),
+	animation : pjs.tiles.newAnimation('Hard.png', 38, 36, 5),
 	delay : 1,
 	userData : {
 		dy : 0
@@ -132,6 +155,22 @@ var difficult = game.newTextObject({
 	color : '#FFFFFF'
 });
 
+var shop = game.newTextObject({
+	text : 'МАГАЗИН',
+	positionC : p(width/2, height/1.7),
+	font : 'myFont',
+	size : 30,
+	color : '#FFFFFF'
+});
+
+var buyCoins = game.newTextObject({
+	text : 'Купить GEEK-coins',
+	positionC : p(width/2, height/1.3),
+	font : 'myFont',
+	size : 30,
+	color : '#FFFFFF'
+});
+
 var offSound = game.newTextObject({
 	text : 'ЗВУК',
 	positionC : p(20, 10),
@@ -141,23 +180,25 @@ var offSound = game.newTextObject({
 });
 
 bird.setBox({
-	offset : p(10,5),
-	size : s(-20,-10)
+	offset : p(5,0),
+	size : s(-10,-2)
 });
 
 var Menu = function () {
 	
 	this.update = function () {
 		bird.angle = 0;
-		bird.x = width/2 - 17;
-		bird.y = height/2 - 12;
+		bird.x = width/2 - 19;
+		bird.y = height/2 - 17;
 		drawBG();
-		//bird.drawStaticBox();
 		bird.draw();
+		//bird.drawStaticBox();
 		drawGR();
 		offSound.draw();
 		startGame.draw();
 		difficult.draw();
+		shop.draw();
+		buyCoins.draw();
 
 		brush.drawText({
 			x : width / 2,
@@ -175,6 +216,14 @@ var Menu = function () {
 		
 		if (mouse.isPeekObject('LEFT', difficult)) {
 			game.setLoop('difficultMenu');
+		}
+		
+		if (mouse.isPeekObject('LEFT', shop)) {
+			return game.setLoop('shop');
+		}
+		
+		if (mouse.isPeekObject('LEFT', buyCoins)) {
+			order();	
 		}
 		
 		
@@ -281,6 +330,39 @@ game.newLoop('difficultMenu', function () {
 		
 });
 
+var blackBirdItem = game.newTextObject({
+		text : 'Black Bird',
+		positionC : p(width/2, height/1.9),
+		font : 'myFont',
+		size : 30,
+		color : '#ff0000'
+});
+
+game.newLoop('shop', function () {
+	
+	drawBG();
+	drawGR();
+	offSound.draw();
+	back.draw();
+	blackBirdItem();
+	
+	if (mouse.isPeekObject('LEFT', blackBirdItem)) {
+		//game.setLoop('menu');
+	}
+	
+	if (mouse.isPeekObject('LEFT', offSound)) {
+		if (sound){
+			offSound.color = '#254364';
+		} else offSound.color = '#FFFFFF';
+		sound = !sound;
+	}
+	
+	if (mouse.isPeekObject('LEFT', back)) {
+		game.setLoop('menu');
+	}
+		
+});
+
 var Game = function() {
 
 	var blocks = [],oldBlock = false, newBlock = false;
@@ -289,7 +371,7 @@ var Game = function() {
 		//var dX = oldBlock ? oldBlock.top.x + pjs.math.random(200,400) : width;
 	
 		var o = game.newImageObject({
-			file : 'block.png',
+			file : 'pol.png',
 			x : 630, y : 0,
 			w : width / 10,
 			angle : 180,
@@ -299,7 +381,7 @@ var Game = function() {
 		});
 		
 		var o2 = game.newImageObject({
-			file : 'block.png',
+			file : 'pol.png',
 			x : 630, y : 0,
 			w : width / 10,
 			onload : function(){
@@ -347,9 +429,9 @@ var Game = function() {
 					}
 			}
 			
-			/*if (el.top.x == -60){
-				el = null;
-			}*/
+			if (el.top.x == -60){
+				
+			}
 			
 			if (el.top.isInCamera()){
 				if ((el.top.isIntersect(bird)) || (el.bottom.isIntersect(bird))){
@@ -472,12 +554,13 @@ game.newLoop('GameOver', function () {
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
 		VK.api('wall.post', {
-			'message' : 'В приложении FlappyGeek на сложности ' + d + ' я набрал очков: ' + score + '\n Попробуй и ты:https://vk.com/app6025550',
-			'attachments' : 'photo-146717372_456239021'
+
+			'message' : 'В приложении FlappyBird на сложности '+ d + ' я набрал очков: ' + score + '\n Попробуй и ты:',
+			'attachments' : 'photo-44840923_456239018'
+
 		}, function (data) {
 			log('Success');
 		});
-		//game.clear();
 	}
 	
 	if (mouse.isPeekObject('LEFT', offSound)) {
