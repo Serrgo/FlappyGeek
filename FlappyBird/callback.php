@@ -31,14 +31,14 @@ if ($item == 'item1') {
         $response['response'] = array( 
           'item_id' => 25, 
           'title' => '300 çîëîòûõ ìîíåò', 
-          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
+          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.png', 
           'price' => 5 
         ); 
-      } elseif ($item == 'item2') { 
+      } elseif ($item == 'item_25new') { 
         $response['response'] = array( 
           'item_id' => 27, 
           'title' => '500 çîëîòûõ ìîíåò', 
-          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
+          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.png', 
           'price' => 10 
         ); 
       } else { 
@@ -57,14 +57,14 @@ case 'get_item_test':
         $response['response'] = array( 
           'item_id' => 125, 
           'title' => '300 çîëîòûõ ìîíåò (òåñòîâûé ðåæèì)', 
-          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.jpg', 
+          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.png', 
           'price' => 5 
         ); 
       } elseif ($item == 'item2') { 
         $response['response'] = array( 
           'item_id' => 127, 
           'title' => '500 çîëîòûõ ìîíåò (òåñòîâûé ðåæèì)', 
-          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.ico', 
+          'photo_url' => 'https://Serrgo.github.io/FlappyBird/coin.png', 
           'price' => 10 
         ); 
       } else { 
