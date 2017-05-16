@@ -450,6 +450,19 @@ var mainMenu = game.newTextObject({
 
 game.newLoop('GameOver', function () {
 	game.clear();
+	drawBG();
+	drawGR();
+
+	brush.drawText({
+		x : width / 2,
+		y : height / 20,
+		text : 'YourScore: ' + score,
+		size : 50,
+		color : 'white',
+		font : 'myFont',
+		align : 'center'
+	});
+
 	pushVK.draw();
 	restart.draw();
 	mainMenu.draw();
