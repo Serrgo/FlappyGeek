@@ -467,6 +467,7 @@ game.newLoop('GameOver', function () {
 	}
 
 	if (mouse.isPeekObject('LEFT', pushVK)) {
+		var e = 'легко', n = 'нормально', h = 'IMPOSSIBLE',d = 'нормально';
 		if (easyTrig){d = e};
 		if (normalTrig){d = n};
 		if (hardTrig){d = h};
